@@ -39,15 +39,15 @@ test_loader = torch.utils.data.DataLoader(train_data,batch_size=64,shuffle=True)
 class MNISTModel(nn.Module):
     def __init__(self):
         super(MNISTModel, self).__init__()
-        self.conv1 = nn.Conv2d(1, 2, kernel_size=3)  # Convolutional layer
+        self.conv1 = nn.Conv2d(1, 3, kernel_size=3)  # Convolutional layer
         self.pool = nn.MaxPool2d(2, 2)               # Max pooling
-        self.fc1 = nn.Linear(2 * 13 * 13, 32)       # Fully connected layer
+        self.fc1 = nn.Linear(3 * 13 * 13, 32)       # Fully connected layer
         self.fc2 = nn.Linear(32, 10)                 # Output layer
 
     def forward(self, x):
         x = torch.relu(self.conv1(x))  # Apply ReLU
         x = self.pool(x)               # Apply pooling
-        x = x.view(-1, 2 * 13 * 13)   # Flatten
+        x = x.view(-1, 3 * 13 * 13)   # Flatten
         x = torch.relu(self.fc1(x))    # Fully connected layer
         x = self.fc2(x)                # Output
         
@@ -114,7 +114,7 @@ def eval_model(model,test_loader):
 
 def test_model():
     num_params = count_params(model)
-    assert num_params <=25000, f"Model has too many params: {num_params} (< 25000)"
+    assert num_params <=25000, f"Model has too many params: {num_params} (> 25000)"
     
     accuracy = eval_model(model, test_loader)
-    assert accuracy >=95.0, f"Model accuracy is low: {accuracy} (> 95%)"
+    assert accuracy >=95.0, f"Model accuracy is low: {accuracy} (< 95%)"
