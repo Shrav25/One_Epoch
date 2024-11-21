@@ -1,4 +1,4 @@
-name: Python Test
+name: PyTorch_Model.py
 
 on:
   push:
