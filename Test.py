@@ -6,6 +6,5 @@
 
 def test():
     assert Accuracy>=95
-    
     assert total_params <=25000
 
