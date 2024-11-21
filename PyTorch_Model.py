@@ -96,37 +96,18 @@ for epoch in range(1):
 model.eval()
 
 
-# In[27]:
+def count_params(model):
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-
-correct = 0
-total = 0
-with torch.no_grad():  # No need to calculate gradients
-    for images, labels in test_loader:
-        outputs = model(images)
-        _, predicted = torch.max(outputs, 1)
-        total += labels.size(0)
-        correct += (predicted == labels).sum().item()
-
-print(f'Accuracy: {100 * correct / total}%')
-
-
-# In[31]:
-
-
-Accuracy = round(100*correct/total)
-print(Accuracy)
-
-
-# In[28]:
-
-
-total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-total_params
-
-
-# In[ ]:
-
-
-
-
+def eval_model(model,test_loader):
+    model.eval()
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():  # No need to calculate gradients
+        for images, labels in test_loader:
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    return 100*correct/total
