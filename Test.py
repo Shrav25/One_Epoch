@@ -3,10 +3,6 @@ import os
 import PyTorch_Model
 import torch
 
-@pytest.fixture
-def model():
-    model = PyTorch_Model.MNISTModel()  # Assuming the model class is in PyTorch_Model
-    return model
 
 @pytest.fixture
 def test_loader():
@@ -18,6 +14,7 @@ def test_loader():
     return test_loader
 
 def test_model_params():
+    model = PyTorch_Model.MNISTModel()
     params_count = PyTorch_Model.count_params(model)
     assert params_count <=25000, "Model has more than 25K Params"
 
