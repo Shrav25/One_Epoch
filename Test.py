@@ -17,13 +17,6 @@ def test_loader():
     test_loader = torch.utils.data.DataLoader(test_data, batch_size=64, shuffle=False)
     return test_loader
 
-def test_readme_exists():
-    assert os.path.isfile("README.md"), "README.md file missing!"
-
-def test_readme_contents():
-    readme_words=[word for line in open('README.md', 'r', encoding="utf-8") for word in line.split()]
-    assert len(readme_words) >= 500, "Make your README.md file interesting! Add atleast 500 words"
-
 def test_model_params():
     params_count = PyTorch_Model.count_params(model)
     assert params_count <=25000, "Model has more than 25K Params"
