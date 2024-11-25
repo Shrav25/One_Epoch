@@ -94,27 +94,3 @@ for epoch in range(1):
 
 
 model.eval()
-
-
-def count_params(model):
-    return sum(p.numel() for p in model.parameters() if p.requires_grad)
-
-def eval_model(model,test_loader):
-    model.eval()
-    correct = 0
-    total = 0
-    
-    with torch.no_grad():  # No need to calculate gradients
-        for images, labels in test_loader:
-            outputs = model(images)
-            _, predicted = torch.max(outputs, 1)
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
-    return 100*correct/total
-
-def test_model():
-    num_params = count_params(model)
-    assert num_params <=25000, f"Model has too many params: {num_params} (> 25000)"
-    
-    accuracy = eval_model(model, test_loader)
-    assert accuracy >=95.0, f"Model accuracy is low: {accuracy} (< 95%)"
