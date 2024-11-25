@@ -39,15 +39,15 @@ test_loader = torch.utils.data.DataLoader(train_data,batch_size=64,shuffle=True)
 class MNISTModel(nn.Module):
     def __init__(self):
         super(MNISTModel, self).__init__()
-        self.conv1 = nn.Conv2d(1, 3, kernel_size=3)  # Convolutional layer
+        self.conv1 = nn.Conv2d(1, 8, kernel_size=3)  # Convolutional layer
         self.pool = nn.MaxPool2d(2, 2)               # Max pooling
-        self.fc1 = nn.Linear(3 * 13 * 13, 32)       # Fully connected layer
-        self.fc2 = nn.Linear(32, 10)                 # Output layer
+        self.fc1 = nn.Linear(8 * 13 * 13, 16)       # Fully connected layer
+        self.fc2 = nn.Linear(16, 10)                 # Output layer
 
     def forward(self, x):
         x = torch.relu(self.conv1(x))  # Apply ReLU
         x = self.pool(x)               # Apply pooling
-        x = x.view(-1, 3 * 13 * 13)   # Flatten
+        x = x.view(-1, 8 * 13 * 13)   # Flatten
         x = torch.relu(self.fc1(x))    # Fully connected layer
         x = self.fc2(x)                # Output
         
