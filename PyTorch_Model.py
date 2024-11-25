@@ -58,7 +58,11 @@ class MNISTModel(nn.Module):
 
 
 #create the mdodel
-model = MNISTModel()
+def get_model():
+    model = MNISTModel()  # Create the model instance
+    return model
+
+model = get_model()
 
 
 # In[23]:
