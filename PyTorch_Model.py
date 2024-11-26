@@ -8,6 +8,15 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torchvision import datasets,transforms
+import random
+import numpy as np
+import torch
+
+random.seed(42)
+np.random.seed(42)
+torch.manual_seed(42)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(42)
 
 
 # In[2]:
@@ -30,7 +39,7 @@ test_data = datasets.MNIST(root='./data',train=False,download=True,transform=tra
 
 #Create Dataloaders
 train_loader = torch.utils.data.DataLoader(train_data,batch_size=64,shuffle=True)
-test_loader = torch.utils.data.DataLoader(train_data,batch_size=64,shuffle=True)
+test_loader = torch.utils.data.DataLoader(train_data,batch_size=64,shuffle=False)
 
 
 # In[21]:
