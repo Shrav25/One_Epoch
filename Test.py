@@ -9,7 +9,5 @@ def test_model_params():
     assert params_count <=25000, "Model has more than 25K Params"
 
 def test_model_accuracy():
-    model = PyTorch_Model.MNISTModel()
-    test_loader = PyTorch_Model.test_loader
-    model_accu = PyTorch_Model.eval_model(model,test_loader)
+    model_accu = PyTorch_Model.accuracy
     assert model_accu >=95, "Model accuracy is below 95%"
