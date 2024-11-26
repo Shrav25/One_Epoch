@@ -124,8 +124,9 @@ def eval_model(model,test_loader):
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-    return 100*correct/total
+    return correct, total
 
-model_accu = eval_model(model,test_loader)
+correct, total = eval_model(model,test_loader)
+accuracy = 100*correct/total
 
 
