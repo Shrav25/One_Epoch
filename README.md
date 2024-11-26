@@ -1,4 +1,6 @@
 # One_Epoch
+[![MNIST Train and Check](https://github.com/Shrav25/One_Epoch/actions/workflows/test.yml/badge.svg)](https://github.com/Shrav25/One_Epoch/actions/workflows/test.yml)
+
 Building MNIST model to run on only 25K and less params & achieve 95% and more accuracy with just 1 Epoch.
 
 Description
