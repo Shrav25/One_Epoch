@@ -48,18 +48,19 @@ test_loader = torch.utils.data.DataLoader(train_data,batch_size=64,shuffle=False
 class MNISTModel(nn.Module):
     def __init__(self):
         super(MNISTModel, self).__init__()
-        self.conv1 = nn.Conv2d(1, 8, kernel_size=3)  # Convolutional layer
-        self.pool = nn.MaxPool2d(2, 2)               # Max pooling
-        self.fc1 = nn.Linear(8 * 13 * 13, 16)       # Fully connected layer
-        self.fc2 = nn.Linear(16, 10)                 # Output layer
+        self.conv1 = nn.Conv2d(1, 6, kernel_size=3, stride=1, padding=1)  # 1x28x28 -> 6x28x28
+        self.conv2 = nn.Conv2d(6, 12, kernel_size=3, stride=1, padding=1)  # 6x28x28 -> 12x28x28
+        self.fc1 = nn.Linear(12 * 7 * 7, 32)  # Reduce fully connected size
+        self.fc2 = nn.Linear(32, 10)  # 10 output classes
 
     def forward(self, x):
-        x = torch.relu(self.conv1(x))  # Apply ReLU
-        x = self.pool(x)               # Apply pooling
-        x = x.view(-1, 8 * 13 * 13)   # Flatten
-        x = torch.relu(self.fc1(x))    # Fully connected layer
-        x = self.fc2(x)                # Output
-        
+        x = torch.relu(self.conv1(x))
+        x = torch.max_pool2d(x, 2)  # Downsample: 6x28x28 -> 6x14x14
+        x = torch.relu(self.conv2(x))
+        x = torch.max_pool2d(x, 2)  # Downsample: 12x14x14 -> 12x7x7
+        x = x.view(-1, 12 * 7 * 7)  # Flatten for the fully connected layer
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
         return x
 
 
@@ -124,5 +125,7 @@ def eval_model(model,test_loader):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
     return 100*correct/total
+
+model_accu = eval_model(model,test_loader)
 
 
