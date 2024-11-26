@@ -8,14 +8,14 @@ This project demonstrates an innovative approach to training a machine learning 
 This model can serve as a foundation for tasks requiring rapid and resource-efficient training.
 
 Table of Contents
-1- Features
-2- Technologies Used
-3- Installation
-4- Usage
-5- Methodology
-6- Project Structure
-7- Contributors
-8- License
+# 1- Features
+# 2- Technologies Used
+# 3- Installation
+# 4- Usage
+# 5- Methodology
+# 6- Project Structure
+# 7- Contributors
+# 8- License
 
 
 
